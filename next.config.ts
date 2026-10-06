@@ -2,7 +2,11 @@ import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    // Next 16.2's dev debug channel can mistake fresh loads for cache restores
+    // and call location.reload() in a loop. Fixed upstream in 16.3.x.
+    reactDebugChannel: false,
+  },
 };
 
 export default withSentryConfig(nextConfig, {
